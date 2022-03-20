@@ -12,7 +12,7 @@
           </p>
           <p class="text-faded text-xsmall">
             By <a href="#">{{ userById(thread.userId).name }}</a
-            >, {{ thread.publishedAt }}.
+            >, <span :title="humanFriendlyDate(thread.publishedAt)">{{ diffForHumans(thread.publishedAt)}}.</span>
           </p>
         </div>
 
@@ -31,7 +31,9 @@
             <p class="text-xsmall">
               <a href="#">{{ userById(thread.userId).name }}</a>
             </p>
-            <p class="text-xsmall text-faded">{{ thread.publishedAt }}</p>
+            <p class="text-xsmall text-faded" :title="humanFriendlyDate(thread.publishedAt)">
+               {{ diffForHumans(thread.publishedAt)}}
+            </p>
           </div>
         </div>
       </div>
@@ -41,6 +43,12 @@
 
 <script>
 import sourceData from '@/data.json'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import localizatedDate from 'dayjs/plugin/localizedFormat'
+dayjs.extend(relativeTime)
+dayjs.extend(localizatedDate)
+
 export default {
   props: {
     threads: {
@@ -60,6 +68,12 @@ export default {
     },
     userById (userId) {
       return this.users.find((u) => u.id === userId)
+    },
+    diffForHumans (timestamp) {
+      return dayjs.unix(timestamp).fromNow()
+    },
+    humanFriendlyDate (timestamp) {
+      return dayjs.unix(timestamp).format('llll')
     }
   }
 }
