@@ -17,8 +17,13 @@ const routes = [
   {
     path: '/me',
     name: 'Profile',
+    component: ProfilePage
+  },
+  {
+    path: '/me/edit',
+    name: 'ProfileEdit',
     component: ProfilePage,
-    props: true // set component parameters as a component prop
+    props: { edit: true }
   },
   {
     path: '/category/:id',

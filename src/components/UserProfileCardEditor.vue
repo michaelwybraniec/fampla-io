@@ -1,6 +1,6 @@
 <template lang="">
   <div class="profile-card">
-    <form @submit.prevent="save">
+    <form @submit.prevent="save" >
       <p class="text-center">
         <img
           :src="user.avatar"
@@ -20,6 +20,7 @@
 
       <div class="form-group">
         <input
+         @keydown.enter.prevent=""
           v-model="activeUser.name"
           type="text"
           placeholder="Full Name"
@@ -75,7 +76,7 @@
       </div>
 
       <div class="btn-group space-between">
-        <button class="btn-ghost">Cancel</button>
+        <button class="btn-ghost" type="reset" @click.prevent="cancel">Cancel</button>
         <button type="submit" class="btn-blue">Save</button>
       </div>
     </form>
@@ -84,21 +85,24 @@
 <script>
 export default {
   name: 'UserProfileCardEditor',
-  data() {
-    return {
-      activeUser: { ...this.user }
-    }
-  },
   props: {
     user: {
       type: Object,
       required: true
     }
   },
+  data() {
+    return {
+      activeUser: { ...this.user }
+    }
+  },
   methods: {
     save() {
-      console.log('save')
       this.$store.dispatch('updateUser', { ...this.activeUser })
+      this.$router.push({ name: 'Profile' })
+    },
+    cancel() {
+      this.$router.push({ name: 'Profile' })
     }
   }
 }
