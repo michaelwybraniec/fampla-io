@@ -1,6 +1,6 @@
 <template lang="">
   <div class="profile-card">
-    <form @submit.prevent="save" >
+    <form @submit.prevent="save">
       <p class="text-center">
         <img
           :src="user.avatar"
@@ -20,7 +20,7 @@
 
       <div class="form-group">
         <input
-         @keydown.enter.prevent=""
+          @keydown.enter.prevent=""
           v-model="activeUser.name"
           type="text"
           placeholder="Full Name"
@@ -48,6 +48,7 @@
       <div class="form-group">
         <label class="form-label" for="user_website">Website</label>
         <input
+          @keydown.enter.prevent=""
           v-model="activeUser.website"
           autocomplete="off"
           class="form-input"
@@ -58,6 +59,7 @@
       <div class="form-group">
         <label class="form-label" for="user_email">Email</label>
         <input
+          @keydown.enter.prevent=""
           v-model="activeUser.email"
           autocomplete="off"
           class="form-input"
@@ -68,6 +70,7 @@
       <div class="form-group">
         <label class="form-label" for="user_location">Location</label>
         <input
+          @keydown.enter.prevent=""
           v-model="activeUser.location"
           autocomplete="off"
           class="form-input"
@@ -76,7 +79,9 @@
       </div>
 
       <div class="btn-group space-between">
-        <button class="btn-ghost" type="reset" @click.prevent="cancel">Cancel</button>
+        <button class="btn-ghost" type="reset" @click.prevent="cancel">
+          Cancel
+        </button>
         <button type="submit" class="btn-blue">Save</button>
       </div>
     </form>
