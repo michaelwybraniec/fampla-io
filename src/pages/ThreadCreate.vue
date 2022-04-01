@@ -50,7 +50,11 @@ export default {
   },
   methods: {
     save() {
-      // dispatch vuex actions
+      this.$store.dispatch('createThreead', {
+        frorumId: this.forum.id,
+        title: this.title,
+        text: this.text
+      })
     }
   }
 }
