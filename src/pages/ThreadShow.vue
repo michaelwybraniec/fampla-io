@@ -1,20 +1,20 @@
 <template>
   <div class="col-large push-top">
     <h1>{{ thread.title }}</h1>
-    <post-list :posts="threadPosts" />
+    <post-list-vue :posts="threadPosts" />
     <post-editor @save="addPost" />
   </div>
 </template>
 
 <script>
 
-import PostList from '@/components/PostList.vue'
+import PostListVue from '@/components/PostList.vue'
 import PostEditor from '@/components/PostEditor.vue'
 
 export default {
   name: 'ThreadShow',
   components: {
-    PostList,
+    PostListVue,
     PostEditor
   },
   props: {

@@ -1,6 +1,6 @@
 <template>
   <header class="header" id="header">
-    <router-link :to="{name: 'Home'}" class="logo">
+    <router-link :to="{ name: 'Home' }" class="logo">
       <img src="../assets/svg/vueschool-logo.svg" />
     </router-link>
 
@@ -15,7 +15,7 @@
     <nav class="navbar">
       <ul>
         <li class="navbar-user">
-          <a href="#">
+          <router-link :to="{ name: 'Profile' }">
             <img
               class="avatar-small"
               :src="authUser.avatar"
@@ -25,11 +25,11 @@
               {{ authUser.name }}
               <img
                 class="icon-profile"
-                src="assets/img/svg/arrow-profile.svg"
+                src="../assets/svg/arrow-profile.svg"
                 alt=""
               />
             </span>
-          </a>
+          </router-link>
 
           <!-- dropdown menu -->
           <!-- add class "active-drop" to show the dropdown -->
@@ -46,25 +46,25 @@
       </ul>
 
       <!-- <ul> -->
-        <!-- <li class="navbar-item"> -->
-          <!-- <a href="index.html">Home</a> -->
-        <!-- </li> -->
-        <!-- <li class="navbar-item"> -->
-          <!-- <a href="category.html">Category</a> -->
-        <!-- </li> -->
-        <!-- <li class="navbar-item"> -->
-          <!-- <a href="forum.html">Forum</a> -->
-        <!-- </li> -->
-        <!-- <li class="navbar-item"> -->
-          <!-- <a href="thread.html">Thread</a> -->
-        <!-- </li> -->
-        <!-- Show these option only on mobile -->
-        <!-- <li class="navbar-item mobile-only"> -->
-          <!-- <a href="profile.html">My Profile</a> -->
-        <!-- </li> -->
-        <!-- <li class="navbar-item mobile-only"> -->
-          <!-- <a href="#">Logout</a> -->
-        <!-- </li> -->
+      <!-- <li class="navbar-item"> -->
+      <!-- <a href="index.html">Home</a> -->
+      <!-- </li> -->
+      <!-- <li class="navbar-item"> -->
+      <!-- <a href="category.html">Category</a> -->
+      <!-- </li> -->
+      <!-- <li class="navbar-item"> -->
+      <!-- <a href="forum.html">Forum</a> -->
+      <!-- </li> -->
+      <!-- <li class="navbar-item"> -->
+      <!-- <a href="thread.html">Thread</a> -->
+      <!-- </li> -->
+      <!-- Show these option only on mobile -->
+      <!-- <li class="navbar-item mobile-only"> -->
+      <!-- <a href="profile.html">My Profile</a> -->
+      <!-- </li> -->
+      <!-- <li class="navbar-item mobile-only"> -->
+      <!-- <a href="#">Logout</a> -->
+      <!-- </li> -->
       <!-- </ul> -->
     </nav>
   </header>

@@ -6,12 +6,19 @@ import ThreadShow from '@/pages/ThreadShow'
 import NotFound from '@/pages/NotFound'
 import { createRouter, createWebHistory } from 'vue-router'
 import sourceData from '@/data.json'
+import ProfilePage from '@/pages/ProfilePage'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: HomePage
+  },
+  {
+    path: '/me',
+    name: 'Profile',
+    component: ProfilePage,
+    props: true // set component parameters as a component prop
   },
   {
     path: '/category/:id',
@@ -30,7 +37,7 @@ const routes = [
     name: 'ThreadShow',
     component: ThreadShow,
     props: true,
-    beforeEnter (to, from, next) {
+    beforeEnter(to, from, next) {
       const threadExists = sourceData.threads.find(thread => thread.id === to.params.id)
       if (threadExists) {
         next()
