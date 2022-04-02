@@ -4,6 +4,7 @@ import CategoryPage from '@/pages/CategoryPage'
 import ForumShow from '@/pages/ForumShow'
 import ThreadShow from '@/pages/ThreadShow'
 import ThreadCreate from '@/pages/ThreadCreate'
+import ThreadEdit from '@/pages/ThreadEdit'
 import NotFound from '@/pages/NotFound'
 import { createRouter, createWebHistory } from 'vue-router'
 import sourceData from '@/data.json'
@@ -63,6 +64,12 @@ const routes = [
     path: '/forum/:forumId/thread/create',
     name: 'ThreadCreate',
     component: ThreadCreate,
+    props: true
+  },
+  {
+    path: '/thread/:id/edit',
+    name: 'ThreadEdit',
+    component: ThreadEdit,
     props: true
   },
   {

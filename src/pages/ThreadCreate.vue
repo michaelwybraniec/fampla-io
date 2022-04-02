@@ -3,13 +3,14 @@
     <h1>
       Create new thread in <i>{{ forum.name }}</i>
     </h1>
-    <thread-editor-vue @save="save" @cancel="cancel" />
+    <thread-editor @save="save" @cancel="cancel" />
   </div>
 </template>
 <script>
-import ThreadEditorVue from '@/components/ThreadEditor.vue'
+import ThreadEditor from '@/components/ThreadEditor'
 export default {
-  components: { ThreadEditorVue },
+  name: 'ThreadCreate',
+  components: { ThreadEditor },
   props: {
     forumId: { type: String, required: true }
   },
@@ -33,4 +34,4 @@ export default {
   }
 }
 </script>
-<style lang=""></style>
+<style scpoed></style>

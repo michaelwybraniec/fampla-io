@@ -1,13 +1,21 @@
 <template>
   <div class="col-large push-top">
-    <h1>{{ thread.title }}</h1>
+    <h1>
+      {{ thread.title }}
+      <router-link
+        sciped="button"
+        class="btn-green btn-small"
+        :to="{ name: 'ThreadEdit', id }"
+      >
+        Edit Tread
+      </router-link>
+    </h1>
     <post-list-vue :posts="threadPosts" />
     <post-editor @save="addPost" />
   </div>
 </template>
 
 <script>
-
 import PostListVue from '@/components/PostList.vue'
 import PostEditor from '@/components/PostEditor.vue'
 
@@ -24,21 +32,21 @@ export default {
     }
   },
   computed: {
-    threads () {
+    threads() {
       return this.$store.state.threads
     },
-    posts () {
+    posts() {
       return this.$store.state.posts
     },
-    thread () {
+    thread() {
       return this.threads.find((thread) => thread.id === this.id)
     },
-    threadPosts () {
-      return this.posts.filter(post => post.threadId === this.id)
+    threadPosts() {
+      return this.posts.filter((post) => post.threadId === this.id)
     }
   },
   methods: {
-    addPost (eventData) {
+    addPost(eventData) {
       const post = {
         ...eventData.post,
         threadId: this.id
@@ -49,6 +57,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
