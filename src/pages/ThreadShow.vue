@@ -18,6 +18,7 @@
 <script>
 import PostListVue from '@/components/PostList.vue'
 import PostEditor from '@/components/PostEditor.vue'
+import { findById } from '@/helpers'
 
 export default {
   name: 'ThreadShow',
@@ -39,7 +40,7 @@ export default {
       return this.$store.state.posts
     },
     thread() {
-      return this.threads.find((thread) => thread.id === this.id)
+      return findById(this.threads, this.id)
     },
     threadPosts() {
       return this.posts.filter((post) => post.threadId === this.id)

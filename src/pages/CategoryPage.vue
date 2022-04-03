@@ -1,14 +1,11 @@
 <template>
-<h1>{{ category.name }}</h1>
-  <ForumList
-    :title="category.name"
-    :forums="getForumsForCategory(category)"
-  />
+  <h1>{{ category.name }}</h1>
+  <ForumList :title="category.name" :forums="getForumsForCategory(category)" />
 </template>
 
 <script>
 import ForumList from '@/components/ForumList'
-
+import { findById } from '@/helpers'
 export default {
   components: {
     ForumList
@@ -20,13 +17,15 @@ export default {
     }
   },
   computed: {
-    category () {
-      return this.$store.state.categories.find(category => category.id === this.id)
+    category() {
+      return findById(this.$store.state.categories, this.id)
     }
   },
   methods: {
-    getForumsForCategory (category) {
-      return this.$store.state.forums.filter(forum => forum.categoryId === category.id)
+    getForumsForCategory(category) {
+      return this.$store.state.forums.filter(
+        (forum) => forum.categoryId === category.id
+      )
     }
   }
 }

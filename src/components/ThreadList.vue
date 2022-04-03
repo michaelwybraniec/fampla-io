@@ -6,8 +6,10 @@
       <div v-for="thread in threads" :key="thread.id" class="thread">
         <div>
           <p>
-            <router-link :to="{name: 'ThreadShow', params: {id: thread.id}}">
-            {{ thread.title }}
+            <router-link
+              :to="{ name: 'ThreadShow', params: { id: thread.id } }"
+            >
+              {{ thread.title }}
             </router-link>
           </p>
           <p class="text-faded text-xsmall">
@@ -17,9 +19,7 @@
         </div>
 
         <div class="activity">
-          <p class="replies-count">
-              {{ thread.posts.length }} replies
-              </p>
+          <p class="replies-count">{{ thread.posts.length }} replies</p>
 
           <img
             class="avatar-medium"
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import { findById } from '@/helpers'
 export default {
   props: {
     threads: {
@@ -50,19 +51,19 @@ export default {
     }
   },
   computed: {
-    posts () {
+    posts() {
       return this.$store.state.posts
     },
-    users () {
+    users() {
       return this.$store.state.users
     }
   },
   methods: {
-    postById (postId) {
-      return this.posts.find((p) => p.id === postId)
+    postById(postId) {
+      return findById(this.posts, postId)
     },
-    userById (userId) {
-      return this.users.find((u) => u.id === userId)
+    userById(userId) {
+      return findById(this.users, userId)
     }
   }
 }
