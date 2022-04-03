@@ -11,3 +11,7 @@ export const upsert = (resources, resource) => {
     resources.push(resource)
   }
 }
+
+// const fetchResource = (resource, id) => fetch(`/api/${resource}/${id}`)
+// const makeFetcher = resource => id => fetchResource(resource, id)
+// const fetchTheater = makeFetcher('theaters')
