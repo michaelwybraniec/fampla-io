@@ -1,8 +1,8 @@
 export const findById = (resources, id) => {
+  if (!resources) return null
   return resources.find(r => r.id === id)
 }
 
-// update or insert if it doe snot exists
 export const upsert = (resources, resource) => {
   const index = resources.findIndex(p => p.id === resource.id)
   if (resource.id && index !== -1) {

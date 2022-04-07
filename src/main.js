@@ -6,8 +6,9 @@ import store from '@/store'
 // firebase
 import firebaseConfig from '@/config/firebase'
 import { getAnalytics, logEvent } from 'firebase/analytics'
-import { initializeApp } from 'firebase/app'
-const app = initializeApp(firebaseConfig)
+import firebase from 'firebase/compat/app'
+
+const app = firebase.initializeApp(firebaseConfig)
 const analytics = getAnalytics(app)
 logEvent(analytics, 'notification_received')
 
