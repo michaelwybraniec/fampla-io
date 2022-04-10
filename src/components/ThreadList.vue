@@ -7,14 +7,22 @@
         <div>
           <p>
             <router-link
-              :to="{ name: 'ThreadShow', params: { id: thread.id } }"
+              v-if="thread.id"
+              :to="{
+                name: 'ThreadShow',
+                params: { id: thread.id }
+              }"
             >
               {{ thread.title }}
             </router-link>
           </p>
           <p class="text-faded text-xsmall">
             By <a href="#">{{ userById(thread.userId).name }}</a
-            >, <AppDate :timestamp="thread.publishedAt" />
+            >,
+            <AppDate
+              v-if="thread.publishedAt"
+              :timestamp="thread.publishedAt"
+            />
           </p>
         </div>
 
@@ -32,7 +40,10 @@
               <a href="#">{{ userById(thread.userId).name }}</a>
             </p>
             <p class="text-xsmall text-faded">
-              <AppDate :timestamp="thread.publishedAt" />
+              <AppDate
+                v-if="thread.publishedAt"
+                :timestamp="thread.publishedAt"
+              />
             </p>
           </div>
         </div>
@@ -63,7 +74,7 @@ export default {
       return findById(this.posts, postId)
     },
     userById(userId) {
-      return findById(this.users, userId)
+      return findById(this.users, userId) || {}
     }
   }
 }

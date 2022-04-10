@@ -41,6 +41,7 @@ export default createStore({
     thread: state => {
       return (id) => {
         const thread = findById(state.threads, id)
+        if (!thread) return {}
         return {
           ...thread,
           get author() {
@@ -89,15 +90,37 @@ export default createStore({
     updateUser({ commit }, user) {
       commit('setItem', { resource: 'users', item: user })
     },
-    fetchThread({ dispatch }, { id }) {
-      return dispatch('fetchItem', { resource: 'threads', id, emoji: '📄' })
+    // ---------------------------------------
+    // Fetch Single Resource
+    // ---------------------------------------
+    fetchCategory({ dispatch }, { id }) {
+      return dispatch('fetchItem', { emoji: '🏷', resource: 'categories', id })
     },
-    fetchUser({ dispatch }, { id }) {
-      return dispatch('fetchItem', { resource: 'users', id, emoji: '🙋' })
+    fetchForum({ dispatch }, { id }) {
+      return dispatch('fetchItem', { emoji: '🏁', resource: 'forums', id })
+    },
+    fetchThread({ dispatch }, { id }) {
+      return dispatch('fetchItem', { emoji: '📄', resource: 'threads', id })
     },
     fetchPost({ dispatch }, { id }) {
-      return dispatch('fetchItem', { resource: 'posts', id, emoji: '💬' })
+      return dispatch('fetchItem', { emoji: '💬', resource: 'posts', id })
     },
+    fetchUser({ dispatch }, { id }) {
+      return dispatch('fetchItem', { emoji: '🙋', resource: 'users', id })
+    },
+    fetchItem({ commit }, { id, emoji, resource }) {
+      console.log('🔥', emoji, id)
+      return new Promise((resolve) => {
+        firebase.firestore().collection(resource).doc(id).onSnapshot((doc) => {
+          const item = { ...doc.data(), id: doc.id }
+          commit('setItem', { resource, item })
+          resolve(item)
+        })
+      })
+    },
+    // ---------------------------------------
+    // Fetch All of a Resource
+    // ---------------------------------------
     fetchAllCategories({ commit }) {
       console.log('🔥', '🏷', 'all')
       return new Promise((resolve) => {
@@ -111,27 +134,23 @@ export default createStore({
         })
       })
     },
-    fetchThreads({ dispatch }, { ids }) {
-      return dispatch('fetchItems', { resource: 'threads', ids, emoji: '📄' })
+    // ---------------------------------------
+    // Fetch Multiple Resources
+    // ---------------------------------------
+    fetchCategories({ dispatch }, { ids }) {
+      return dispatch('fetchItems', { resource: 'categories', ids, emoji: '🏷' })
     },
     fetchForums({ dispatch }, { ids }) {
       return dispatch('fetchItems', { resource: 'forums', ids, emoji: '🏁' })
+    },
+    fetchThreads({ dispatch }, { ids }) {
+      return dispatch('fetchItems', { resource: 'threads', ids, emoji: '📄' })
     },
     fetchUsers({ dispatch }, { ids }) {
       return dispatch('fetchItems', { resource: 'users', ids, emoji: '🙋' })
     },
     fetchPosts({ dispatch }, { ids }) {
       return dispatch('fetchItems', { resource: 'posts', ids, emoji: '💬' })
-    },
-    fetchItem({ state, commit }, { id, emoji, resource }) {
-      console.log('🔥', emoji, id)
-      return new Promise((resolve) => {
-        firebase.firestore().collection(resource).doc(id).onSnapshot((doc) => {
-          const item = { ...doc.data(), id: doc.id }
-          commit('setItem', { resource, item })
-          resolve(item)
-        })
-      })
     },
     fetchItems({ dispatch }, { ids, resource, emoji }) {
       return Promise.all(ids.map(id => dispatch('fetchItem', { id, resource, emoji })))

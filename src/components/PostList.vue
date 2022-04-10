@@ -29,7 +29,7 @@
       </div>
 
       <div class="post-date text-faded">
-        <AppDate :timestamp="post.publishedAt" />
+        <AppDate v-if="post.publishedAt" :timestamp="post.publishedAt" />
       </div>
     </div>
   </div>
