@@ -6,7 +6,7 @@
         <p class="text-lead">{{ forum.description }}</p>
       </div>
       <router-link
-        v-if="forum.id"
+        v-if="forum?.id"
         :to="{
           name: 'ThreadCreate',
           params: { forumId: forum.id }
@@ -22,6 +22,7 @@
     <span v-else>
       No threads found. Create a first thread
       <router-link
+        v-if="forum?.id"
         :to="{
           name: 'ThreadCreate',
           params: { forumId: forum.id }
@@ -36,6 +37,7 @@
 <script>
 import ThreadList from '@/components/ThreadList.vue'
 import { findById } from '@/helpers'
+import { mapActions } from 'vuex'
 export default {
   components: { ThreadList },
   props: {
@@ -51,11 +53,6 @@ export default {
   },
   computed: {
     forum() {
-      console.log('this.forum', {
-        storedForums: this.$store.state.forums,
-        forumId: this.id,
-        foundForum: findById(this.$store.state.forums, this.id)
-      })
       return findById(this.$store.state.forums, this.id)
     },
     threads() {
@@ -69,15 +66,14 @@ export default {
       }
     }
   },
+  methods: {
+    ...mapActions(['fetchForum', 'fetchThreads', 'fetchUsers'])
+  },
   async created() {
-    const forum = await this.$store.dispatch('fetchForum', { id: this.id })
+    const forum = await this.fetchForum({ id: this.id })
     if (forum.threads) {
-      const threads = await this.$store.dispatch('fetchThreads', {
-        ids: forum.threads
-      })
-      this.$store.dispatch('fetchUsers', {
-        ids: threads.map((thread) => thread.userId)
-      })
+      const threads = await this.fetchThreads({ ids: forum.threads })
+      this.fetchUsers({ ids: threads.map((thread) => thread.userId) })
     }
     this.threadLoaded = true
   }
