@@ -2,9 +2,10 @@ import { findById } from '@/helpers'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/firestore'
 export default {
+
   async createPost({ commit, state }, post) {
     post.userId = state.authId
-    post.publishedAt = Math.floor(Date.now() / 1000)
+    post.publishedAt = firebase.firestore.FieldValue.serverTimestamp()
     const batch = firebase.firestore().batch()
     const postRef = firebase.firestore().collection('posts').doc()
     const threadRef = firebase.firestore().collection('threads').doc(post.threadId)
@@ -14,10 +15,12 @@ export default {
       contributors: firebase.firestore.FieldValue.arrayUnion(state.authId)
     })
     await batch.commit()
-    commit('setItem', { resource: 'posts', item: { ...post, id: postRef.id } }) // set the post
-    commit('appendPostToThread', { childId: postRef.id, parentId: post.threadId }) // append post to thread
+    const newPost = await postRef.get()
+    commit('setItem', { resource: 'posts', item: { ...newPost.data(), id: newPost.id } })
+    commit('appendPostToThread', { childId: newPost.id, parentId: post.threadId })
     commit('appendContributorToThread', { childId: state.authId, parentId: post.threadId })
   },
+
   async createThread({ commit, state, dispatch }, { text, title, forumId }) {
     const id = 'ggqq' + Math.random()
     const userId = state.authId
@@ -29,6 +32,7 @@ export default {
     dispatch('createPost', { text, threadId: id })
     return findById(state.threads, id)
   },
+
   async updateThread({ commit, state }, { title, text, id }) {
     const thread = findById(state.threads, id)
     const post = findById(state.posts, thread.posts[0])
@@ -38,6 +42,7 @@ export default {
     commit('setItem', { resource: 'posts', item: newPost })
     return newThread
   },
+
   updateUser({ commit }, user) {
     commit('setItem', { resource: 'users', item: user })
   },
