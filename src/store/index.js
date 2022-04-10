@@ -3,6 +3,7 @@ import { findById, upsert } from '@/helpers'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/firestore'
 export default createStore({
+
   state: {
     categories: [],
     forums: [],
@@ -11,6 +12,7 @@ export default createStore({
     users: [],
     authId: 'VXjpr2WHa8Ux4Bnggym8QFLdv5C3'
   },
+
   getters: {
     authUser: (state, getters) => {
       return getters.user(state.authId)
@@ -54,6 +56,7 @@ export default createStore({
       }
     }
   },
+
   actions: {
     createPost({ commit, state }, post) {
       post.id = 'ggqq' + Math.random()
@@ -95,6 +98,15 @@ export default createStore({
     fetchPost({ dispatch }, { id }) {
       return dispatch('fetchItem', { resource: 'posts', id, emoji: '💬' })
     },
+    fetchThreads({ dispatch }, { ids }) {
+      return dispatch('fetchItems', { resource: 'threads', ids, emoji: '📄' })
+    },
+    fetchUsers({ dispatch }, { ids }) {
+      return dispatch('fetchItems', { resource: 'users', ids, emoji: '🙋' })
+    },
+    fetchPosts({ dispatch }, { ids }) {
+      return dispatch('fetchItems', { resource: 'posts', ids, emoji: '💬' })
+    },
     fetchItem({ state, commit }, { id, emoji, resource }) {
       console.log('🔥', emoji, id)
       return new Promise((resolve) => {
@@ -104,8 +116,12 @@ export default createStore({
           resolve(item)
         })
       })
+    },
+    fetchItems({ dispatch }, { ids, resource, emoji }) {
+      return Promise.all(ids.map(id => dispatch('fetchItem', { id, resource, emoji })))
     }
   },
+
   mutations: {
     setItem(state, { resource, item }) {
       upsert(state[resource], item)
