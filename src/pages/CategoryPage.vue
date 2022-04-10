@@ -1,5 +1,5 @@
 <template>
-  <h1>{{ category.name }}</h1>
+  <h1 class="push-top">Category: {{ category.name }}</h1>
   <ForumList :title="category.name" :forums="getForumsForCategory(category)" />
 </template>
 
