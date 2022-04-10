@@ -43,6 +43,8 @@ export default {
   fetchPost: ({ dispatch }, { id }) => dispatch('fetchItem', { emoji: '💬', resource: 'posts', id }),
   fetchUser: ({ dispatch }, { id }) => dispatch('fetchItem', { emoji: '🙋', resource: 'users', id }),
   fetchAuthUser: ({ dispatch, state }) => dispatch('fetchItem', { emoji: '🙋', resource: 'users', id: state.authId }),
+  // Comment: For DRY reasons, the fetchAuthUser action in actions.js should have been implemented in terms of the already existing fetchUser, not the more generic fetchItem:
+  // fetchAuthUser: ({ dispatch, state }) => dispatch("fetchUser", { id: state.authId })
 
   // ---------------------------------------
   // Fetch All of a Resource
