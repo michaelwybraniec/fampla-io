@@ -21,19 +21,25 @@
       </div>
 
       <div class="post-content">
-        <div>
-          <p>
+        <div class="col-full">
+          <post-editor
+            v-if="editing === post.id"
+            :post="post"
+            @cancel="cancel"
+          />
+          <p v-else>
             {{ post.text }}
           </p>
         </div>
         <a
+          v-if="editing !== post.id"
+          @click.prevent="toggleEditMode(post.id)"
           href="#"
-          style="margin-left: auto; padding-left: 20px"
+          style="margin-left: auto; padding-left: 15px"
           class="link-unstyled"
-          title="Make a change"
+          title="Edit"
         >
           <fa class="fa-solid fa-md" icon="pencil-alt" />
-
         </a>
       </div>
 
@@ -45,11 +51,18 @@
 </template>
 
 <script>
+import PostEditor from '@/components/PostEditor'
 export default {
+  components: { PostEditor },
   props: {
     posts: {
       required: true,
       type: Array
+    }
+  },
+  data() {
+    return {
+      editing: null
     }
   },
   computed: {
@@ -60,6 +73,12 @@ export default {
   methods: {
     userById(userId) {
       return this.$store.getters.user(userId)
+    },
+    toggleEditMode(id) {
+      this.editing = id === this.editing ? null : id
+    },
+    cancel() {
+      this.editing = null
     }
   }
 }

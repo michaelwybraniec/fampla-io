@@ -22,7 +22,7 @@
 
     <post-list :posts="threadPosts" />
 
-    <post-editor @save="addPost" />
+    <post-editor @save="addPost" @cancel="cancel" />
   </div>
 </template>
 
@@ -65,6 +65,9 @@ export default {
       }
       this.createPost(post)
     }
+  },
+  cancel() {
+    console.log('cancel')
   },
   async created() {
     // fetch the thread
