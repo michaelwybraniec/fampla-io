@@ -12,6 +12,11 @@ export const upsert = (resources, resource) => {
   }
 }
 
+export const docToResource = (doc) => {
+  if (typeof doc?.data !== 'function') return doc
+  return { ...doc.data(), id: doc.id }
+}
+
 // const fetchResource = (resource, id) => fetch(`/api/${resource}/${id}`)
 // const makeFetcher = resource => id => fetchResource(resource, id)
 // const fetchTheater = makeFetcher('theaters')
