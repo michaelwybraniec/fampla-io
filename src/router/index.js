@@ -7,8 +7,8 @@ import ThreadCreate from '@/pages/ThreadCreate'
 import ThreadEdit from '@/pages/ThreadEdit'
 import NotFound from '@/pages/NotFound'
 import { createRouter, createWebHistory } from 'vue-router'
-import { findById } from '@/helpers'
-import sourceData from '@/data.json'
+// import { findById } from '@/helpers'
+// import sourceData from '@/data.json'
 import ProfilePage from '@/pages/ProfilePage'
 
 const routes = [
@@ -45,21 +45,21 @@ const routes = [
     path: '/thread/:id',
     name: 'ThreadShow',
     component: ThreadShow,
-    props: true,
-    beforeEnter(to, from, next) {
-      const threadExists = findById(sourceData.threads, to.params.id)
-      if (threadExists) {
-        next()
-      } else {
-        next({
-          name: 'NotFound',
-          params: { pathMatch: to.path.substring(1).split('/') },
-          // preserve existing query and hash
-          query: to.query,
-          hash: to.hash
-        })
-      }
-    }
+    props: true
+    // beforeEnter(to, from, next) {
+    //   const threadExists = findById(sourceData.threads, to.params.id)
+    //   if (threadExists) {
+    //     next()
+    //   } else {
+    //     next({
+    //       name: 'NotFound',
+    //       params: { pathMatch: to.path.substring(1).split('/') },
+    //       // preserve existing query and hash
+    //       query: to.query,
+    //       hash: to.hash
+    //     })
+    //   }
+    // }
   },
   {
     path: '/forum/:forumId/thread/create',
