@@ -16,21 +16,23 @@
         Start a thread
       </router-link>
     </div>
-  </div>
-  <div class="col-full push-top">
-    <ThreadList v-if="threads.length > 0" :threads="threads" />
-    <span v-else>
-      No threads found. Create a first thread
-      <router-link
-        v-if="forum?.id"
-        :to="{
-          name: 'ThreadCreate',
-          params: { forumId: forum.id }
-        }"
-      >
-        here.
-      </router-link>
-    </span>
+    <div class="col-full push-top">
+      <div v-if="asyncDataStatus_ready" class="col-full">
+        <ThreadList v-if="threads.length > 0" :threads="threads" />
+      </div>
+      <span v-else>
+        No threads found. Create a first thread
+        <router-link
+          v-if="forum?.id"
+          :to="{
+            name: 'ThreadCreate',
+            params: { forumId: forum.id }
+          }"
+        >
+          here.
+        </router-link>
+      </span>
+    </div>
   </div>
 </template>
 
@@ -38,8 +40,11 @@
 import ThreadList from '@/components/ThreadList.vue'
 import { findById } from '@/helpers'
 import { mapActions } from 'vuex'
+import asyncDataStatus from '@/mixins/asyncDataStatus'
 export default {
+  name: 'ForumShow',
   components: { ThreadList },
+  mixins: [asyncDataStatus],
   props: {
     id: {
       requird: true,
@@ -73,7 +78,8 @@ export default {
     const forum = await this.fetchForum({ id: this.id })
     if (forum.threads) {
       const threads = await this.fetchThreads({ ids: forum.threads })
-      this.fetchUsers({ ids: threads.map((thread) => thread.userId) })
+      await this.fetchUsers({ ids: threads.map((thread) => thread.userId) })
+      this.asyncDataStatus_fetched()
     }
     this.threadLoaded = true
   }
