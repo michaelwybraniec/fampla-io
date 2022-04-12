@@ -1,59 +1,31 @@
 <template>
-  <div class="spinner">
-    <div class="bounce1"></div>
-    <div class="bounce2"></div>
-    <div class="bounce3"></div>
-  </div>
+  <div class="lds-dual-ring"></div>
 </template>
+
 <style scoped>
-.spinner {
-  margin: 100px auto 0;
-  width: 70px;
-  text-align: center;
-}
-
-.spinner > div {
-  width: 18px;
-  height: 18px;
-  background-color: #629781;
-
-  border-radius: 100%;
+.lds-dual-ring {
+  margin: 100px auto;
   display: inline-block;
-  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  width: 80px;
+  height: 80px;
 }
-
-.spinner .bounce1 {
-  -webkit-animation-delay: -0.32s;
-  animation-delay: -0.32s;
+.lds-dual-ring:after {
+  content: ' ';
+  display: block;
+  width: 44px;
+  height: 44px;
+  margin: 4px;
+  border-radius: 50%;
+  border: 3.15px solid #57ad8d;
+  border-color: #57ad8d transparent #57ad8d transparent;
+  animation: lds-dual-ring 0.3s linear infinite;
 }
-
-.spinner .bounce2 {
-  -webkit-animation-delay: -0.16s;
-  animation-delay: -0.16s;
-}
-
-@-webkit-keyframes sk-bouncedelay {
-  0%,
-  80%,
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
   100% {
-    -webkit-transform: scale(0);
-  }
-  40% {
-    -webkit-transform: scale(1);
-  }
-}
-
-@keyframes sk-bouncedelay {
-  0%,
-  80%,
-  100% {
-    -webkit-transform: scale(0);
-    transform: scale(0);
-  }
-  40% {
-    -webkit-transform: scale(1);
-    transform: scale(1);
+    transform: rotate(360deg);
   }
 }
 </style>
