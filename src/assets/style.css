@@ -47,8 +47,13 @@ figcaption {
 }
 
 .list-title {
+  /* border-bottom-left-radius: 20px; */
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  /* background-color: #263959;
+  color: #f5f8fe; */
   background-color: #263959;
-  border-bottom-left-radius: 20px;
   color: #f5f8fe;
   font-weight: 100;
   display: flex;
@@ -93,8 +98,8 @@ figcaption {
 }
 
 .forum-list .forum-listing:nth-child(odd) {
-  background: rgba(73, 89, 96, 0.06);
-  border-bottom-left-radius: 20px;
+  background: rgba(55, 69, 75, 0.06);
+  /* border-bottom-left-radius: 20px; */
 }
 
 .forum-list .forum-listing:last-child {
@@ -204,7 +209,7 @@ figcaption {
 
 .thread-list .thread:nth-child(odd) {
   background: rgba(73, 89, 96, 0.06);
-  border-bottom-left-radius: 20px;
+  /* border-bottom-left-radius: 20px; */
 }
 
 .thread-list .thread:last-child {
