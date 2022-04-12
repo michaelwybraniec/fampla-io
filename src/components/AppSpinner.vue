@@ -12,11 +12,11 @@
 .lds-dual-ring:after {
   content: ' ';
   display: block;
-  width: 44px;
-  height: 44px;
+  width: 34px;
+  height: 34px;
   margin: 4px;
   border-radius: 50%;
-  border: 3.15px solid #57ad8d;
+  border: 3px solid #57ad8d;
   border-color: #57ad8d transparent #57ad8d transparent;
   animation: lds-dual-ring 0.3s linear infinite;
 }
