@@ -1,10 +1,10 @@
 module.exports = {
   // Web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  apiKey: 'AIzaSyBEOEoSj1vPmcq_qSPdhQjlTdXYuz6afkM',
-  authDomain: 'vue-school-forum-19467.firebaseapp.com',
-  projectId: 'vue-school-forum-19467',
-  storageBucket: 'vue-school-forum-19467.appspot.com',
-  messagingSenderId: '49977500509',
-  appId: '1:49977500509:web:7ce08908132b743fb0beb4'
+  apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
+  authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.VUE_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.VUE_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.VUE_APP_FIREBASE_APP_ID
 }
