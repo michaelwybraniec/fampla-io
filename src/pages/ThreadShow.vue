@@ -23,7 +23,12 @@
 
       <post-list :posts="threadPosts" />
 
-      <post-editor @save="addPost" @cancel="cancel" />
+      <post-editor
+        @save="addPost"
+        @cancel="cancel"
+        @dirty="formIsDirty = true"
+        @clean="formIsDirty = false"
+      />
     </div>
   </div>
 </template>
@@ -44,6 +49,11 @@ export default {
     id: {
       required: true,
       type: String
+    }
+  },
+  data() {
+    return {
+      formIsDirty: false
     }
   },
   computed: {
@@ -71,7 +81,15 @@ export default {
     }
   },
   cancel() {
-    console.log('cancel')
+    if (this.formIsDirty) {
+      const confirmed = window.confirm(
+        'Are you sure you want to leave? Unsaved changes will be lost!'
+      )
+      if (!confirmed) return false
+      else this.editing = null
+    } else {
+      this.editing = null
+    }
   },
   async created() {
     // fetch the thread
@@ -82,6 +100,22 @@ export default {
     const users = posts.map((post) => post.userId).concat(thread.userId)
     await this.fetchUsers({ ids: users })
     this.asyncDataStatus_fetched()
+  },
+  beforeRouteLeave() {
+    if (this.formIsDirty) {
+      const confirmed = window.confirm(
+        'Are you sure you want to leave? Unsaved changes will be lost!'
+      )
+      if (!confirmed) return false
+    }
+  },
+  watch: {
+    formIsDirty: {
+      handler() {
+        console.log('TEST ThreadShow formIsDirty', this.formIsDirty.text)
+      },
+      deep: true
+    }
   }
 }
 </script>

@@ -18,7 +18,7 @@
     </div>
     <div class="col-full push-top">
       <div v-if="asyncDataStatus_ready" class="col-full">
-        <ThreadList v-if="threads.length > 0" :threads="threads" />
+        <thread-list v-if="threads.length > 0" :threads="threads" />
       </div>
       <span v-else>
         No threads found. Create a first thread

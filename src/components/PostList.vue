@@ -27,6 +27,8 @@
             :post="post"
             @cancel="cancel"
             @save="handleUpdate"
+            @dirty="formIsDirty = true"
+            @clean="formIsDirty = false"
           />
           <p v-else>
             {{ post.text }}
@@ -65,7 +67,8 @@ export default {
   },
   data() {
     return {
-      editing: null
+      editing: null,
+      formIsDirty: false
     }
   },
   computed: {
@@ -79,14 +82,47 @@ export default {
       return this.$store.getters.user(userId)
     },
     toggleEditMode(id) {
-      this.editing = id === this.editing ? null : id
+      if (this.formIsDirty) {
+        const confirmed = window.confirm(
+          'Are you sure you want to leave? Unsaved changes will be lost!'
+        )
+        if (!confirmed) return false
+        else this.editing = id
+      } else {
+        this.editing = id === this.editing ? null : id
+        // this.formIsDirty = false
+      }
     },
     cancel() {
-      this.editing = null
+      if (this.formIsDirty) {
+        const confirmed = window.confirm(
+          'Are you sure you want to leave? Unsaved changes will be lost!'
+        )
+        if (!confirmed) return false
+        else this.editing = null
+      } else {
+        this.editing = null
+      }
     },
     handleUpdate(event) {
       this.updatePost(event.post)
       this.editing = null
+    }
+  },
+  beforeRouteLeave() {
+    if (this.formIsDirty) {
+      const confirmed = window.confirm(
+        'Are you sure you want to leave? Unsaved changes will be lost!'
+      )
+      if (!confirmed) return false
+    }
+  },
+  watch: {
+    formIsDirty: {
+      handler() {
+        console.log('TEST postList formIsDirty', this.formIsDirty)
+      },
+      deep: true
     }
   }
 }

@@ -3,7 +3,7 @@
     <form @submit.prevent="save">
       <div class="form-group">
         <textarea
-          v-model="postCopy.text"
+          v-model="form.postCopy.text"
           name=""
           id=""
           cols="30"
@@ -12,7 +12,13 @@
         />
       </div>
       <div class="form-actions">
-        <button @click="cancel" v-if="post.id" class="btn">Cancel</button>
+        <button
+          @click.prevent="$emit('cancel')"
+          v-if="post.id"
+          class="btn btn-ghost"
+        >
+          Cancel
+        </button>
         <button class="btn-blue">
           {{ post.id ? 'Update Post' : 'Submit post' }}
         </button>
@@ -28,16 +34,28 @@ export default {
   },
   data() {
     return {
-      postCopy: { ...this.post }
+      form: { postCopy: { ...this.post } }
     }
   },
   methods: {
     save() {
-      this.$emit('save', { post: this.postCopy }) // access under eventData.post
-      this.postCopy.text = ''
-    },
-    cancel() {
-      this.$emit('cancel')
+      this.$emit('clean')
+      this.$emit('save', { post: this.form.postCopy })
+      this.form.postCopy.text = ''
+      this.form.post.text = ''
+    }
+  },
+  watch: {
+    form: {
+      handler() {
+        console.log('TEST PostEditor form', this.form.postCopy.text, this.post)
+        if (this.form.postCopy.text !== this.post) {
+          this.$emit('dirty')
+        } else {
+          this.$emit('clean')
+        }
+      },
+      deep: true
     }
   }
 }
