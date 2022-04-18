@@ -85,7 +85,8 @@ const routes = [
   {
     path: '/register',
     name: 'Register',
-    component: RegisterPage
+    component: RegisterPage,
+    meta: { requiresGuest: true }
   },
   {
     path: '/signin',
@@ -123,6 +124,9 @@ router.beforeEach(async (to, from) => {
   console.log(`🚦 navigating to ${to.name} from ${from.name}`)
   store.dispatch('unsubscribeAllSnapshots')
   if (to.meta.requiresAuth && !store.state.authId) {
+    return { name: 'SignIn' }
+  }
+  if (to.meta.requiresGuest && store.state.authId) {
     return { name: 'Home' }
   }
 })
