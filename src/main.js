@@ -10,10 +10,10 @@ import { getAnalytics, logEvent } from 'firebase/analytics'
 import firebase from 'firebase/compat/app'
 const app = firebase.initializeApp(firebaseConfig)
 
-app.auth().onAuthStateChanged(user => {
-  store.dispatch('unsubscribeAuthUserSnapshot')
-  if (user) store.dispatch('fetchAuthUser')
-})
+// app.auth().onAuthStateChanged(user => {
+//   store.dispatch('unsubscribeAuthUserSnapshot')
+//   if (user) store.dispatch('fetchAuthUser')
+// })
 
 const analytics = getAnalytics(app)
 logEvent(analytics, 'notification_received')
