@@ -9,6 +9,7 @@ import NotFound from '@/pages/NotFound'
 import RegisterPage from '@/pages/RegisterPage'
 import SignInPage from '@/pages/SignInPage'
 import { createRouter, createWebHistory } from 'vue-router'
+import { findById } from '@/helpers'
 import ProfilePage from '@/pages/ProfilePage'
 import store from '@/store'
 
@@ -46,21 +47,25 @@ const routes = [
     path: '/thread/:id',
     name: 'ThreadShow',
     component: ThreadShow,
-    props: true
-    // beforeEnter(to, from, next) {
-    //   const threadExists = findById(sourceData.threads, to.params.id)
-    //   if (threadExists) {
-    //     next()
-    //   } else {
-    //     next({
-    //       name: 'NotFound',
-    //       params: { pathMatch: to.path.substring(1).split('/') },
-    //       // preserve existing query and hash
-    //       query: to.query,
-    //       hash: to.hash
-    //     })
-    //   }
-    // }
+    props: true,
+    async beforeEnter(to, from, next) {
+      await store.dispatch('fetchThread', { id: to.params.id })
+      // check if thread exists
+      const threadExists = findById(store.state.threads, to.params.id)
+      // if exists continue
+      if (threadExists) {
+        return next()
+      } else {
+        next({
+          name: 'NotFound',
+          params: { pathMatch: to.path.substring(1).split('/') },
+          // preserve existing query and hash
+          query: to.query,
+          hash: to.hash
+        })
+      }
+      // if doesnt exist redirect to not found
+    }
   },
   {
     path: '/forum/:forumId/thread/create',
