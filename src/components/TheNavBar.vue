@@ -15,7 +15,10 @@
     <nav class="navbar">
       <ul>
         <li v-if="authUser" class="navbar-user">
-          <a @click.prevent="userDropdownOpen = !userDropdownOpen">
+          <a
+            @click.prevent="userDropdownOpen = !userDropdownOpen"
+            v-click-outside="() => (userDropdownOpen = false)"
+          >
             <img
               class="avatar-small"
               :src="authUser.avatar"
@@ -23,17 +26,19 @@
             />
             <span>
               {{ authUser.name }}
-              <img
+              <!-- <img
                 class="icon-profile"
                 src="../assets/svg/arrow-profile.svg"
                 alt=""
-              />
+              /> -->
             </span>
           </a>
 
           <!-- dropdown menu -->
           <!-- add class "active-drop" to show the dropdown -->
+          <!-- <div id="user-dropdown" :class="{ 'active-drop': userDropdownOpen }"> -->
           <div id="user-dropdown" :class="{ 'active-drop': userDropdownOpen }">
+
             <div class="triangle-drop"></div>
             <ul class="dropdown-menu">
               <li class="dropdown-menu-item">
