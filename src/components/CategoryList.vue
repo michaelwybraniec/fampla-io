@@ -1,11 +1,11 @@
 <template>
-    <ForumList
-      v-for="category in categories"
-      :key="category.id"
-      :forums="getForumsForCategory(category)"
-      :title="category.name"
-      :category-id="category.id"
-    />
+  <ForumList
+    v-for="category in categories"
+    :key="category.id"
+    :forums="getForumsForCategory(category)"
+    :title="category.name"
+    :category-id="category.id"
+  />
 </template>
 
 <script>
@@ -20,8 +20,10 @@ export default {
     }
   },
   methods: {
-    getForumsForCategory (category) {
-      return this.$store.state.forums.filter(forum => forum.categoryId === category.id)
+    getForumsForCategory(category) {
+      return this.$store.state.forums.items.filter(
+        (forum) => forum.categoryId === category.id
+      )
     }
   }
 }
