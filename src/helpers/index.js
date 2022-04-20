@@ -17,6 +17,21 @@ export const docToResource = (doc) => {
   return { ...doc.data(), id: doc.id }
 }
 
+export const makeAppendChildToParentMutation = ({ parent, child }) => {
+  return (state, { childId, parentId }) => {
+    const resource = findById(state[parent], parentId)
+    if (!resource) {
+      console.warn(`Appending ${child} ${childId} to ${parent} ${parentId} failed because the parent didn't exist`)
+      return
+    }
+    resource[child] = resource[child] || []
+
+    if (!resource[child].includes(childId)) {
+      resource[child].push(childId)
+    }
+  }
+}
+
 // const fetchResource = (resource, id) => fetch(`/api/${resource}/${id}`)
 // const makeFetcher = resource => id => fetchResource(resource, id)
 // const fetchTheater = makeFetcher('theaters')
