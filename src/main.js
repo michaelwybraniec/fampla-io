@@ -7,6 +7,7 @@ import store from '@/store'
 import FontAwesome from '@/plugins/FontAwesome'
 import ClickOutsideDirective from '@/plugins/ClickOutsideDirective'
 import PageScrollDirective from '@/plugins/PageScrollDirective'
+import Vue3Pagination from '@/plugins/Vue3Pagination'
 
 // firebase
 import firebaseConfig from '@/config/firebase'
@@ -28,6 +29,7 @@ forumApp.use(store)
 forumApp.use(FontAwesome)
 forumApp.use(ClickOutsideDirective)
 forumApp.use(PageScrollDirective)
+forumApp.use(Vue3Pagination)
 
 // importing all components
 // https://v2.vuejs.org/v2/style-guide/?redirect=true#Base-component-names-strongly-recommended

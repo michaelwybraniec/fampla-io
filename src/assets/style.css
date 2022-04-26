@@ -2799,3 +2799,12 @@ hr {
 .post-listing-editor {
   flex: 1 1 83%;
 }
+
+/* style.css */
+.Pagination{
+  justify-content: center;
+  margin: 40px !important;
+}
+.Pagination .Page-active{
+  color:white;
+}
