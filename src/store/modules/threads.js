@@ -2,8 +2,13 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
 import chunk from 'lodash/chunk'
-
-import { findById, docToResource, makeAppendChildToParentMutation } from '@/helpers'
+import {
+  findById,
+  docToResource,
+  makeAppendChildToParentMutation,
+  makeFetchItemAction,
+  makeFetchItemsAction
+} from '@/helpers'
 
 export default {
 
@@ -89,12 +94,12 @@ export default {
       return docToResource(newThread)
     },
 
-    fetchThread: ({ dispatch }, { id }) => dispatch('fetchItem',
-      { emoji: '📄', resource: 'threads', id }, { root: true }
+    fetchThread: makeFetchItemAction(
+      { emoji: '📄', resource: 'threads' }
     ),
 
-    fetchThreads: ({ dispatch }, { ids }) => dispatch('fetchItems',
-      { resource: 'threads', ids, emoji: '📄' }, { root: true }
+    fetchThreads: makeFetchItemsAction(
+      { emoji: '📄', resource: 'threads' }
     ),
 
     fetchThreadsByPage: ({ dispatch, commit }, { ids, page, perPage = 10 }) => {

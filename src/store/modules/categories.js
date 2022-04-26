@@ -1,22 +1,31 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
+import {
+  makeFetchItemAction,
+  makeFetchItemsAction
+} from '@/helpers'
 
 export default {
+
   namespaced: true,
+
   state: {
     items: []
   },
+
   getters: {},
+
   actions: {
-    fetchCategory: ({ dispatch }, { id }) => dispatch('fetchItem',
-      { emoji: '🏷', resource: 'categories', id },
-      { root: true }
+
+    fetchCategory: makeFetchItemAction(
+      { emoji: '🏷', resource: 'categories' }
     ),
-    fetchCategories: ({ dispatch }, { ids }) => dispatch('fetchItems',
-      { resource: 'categories', ids, emoji: '🏷' },
-      { root: true }
+
+    fetchCategories: makeFetchItemsAction(
+      { emoji: '🏷', resource: 'categories' }
     ),
+
     fetchAllCategories({ commit }) {
       console.log('🔥', '🏷', 'all')
       return new Promise((resolve) => {
@@ -34,5 +43,6 @@ export default {
       })
     }
   },
+
   mutations: {}
 }

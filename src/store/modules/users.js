@@ -1,8 +1,13 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
-import { docToResource, makeAppendChildToParentMutation, findById } from '@/helpers'
-
+import {
+  docToResource,
+  makeAppendChildToParentMutation,
+  findById,
+  makeFetchItemAction,
+  makeFetchItemsAction
+} from '@/helpers'
 export default {
 
   namespaced: true,
@@ -66,15 +71,14 @@ export default {
       commit('setItem', { resource: 'users', item: user }, { root: true })
     },
 
-    fetchUser: ({ dispatch }, { id }) => dispatch('fetchItem',
-      { emoji: '🙋', resource: 'users', id },
-      { root: true }
+    fetchUser: makeFetchItemAction(
+      { emoji: '🙋', resource: 'users' }
     ),
 
-    fetchUsers: ({ dispatch }, { ids }) => dispatch('fetchItems',
-      { resource: 'users', ids, emoji: '🙋' },
-      { root: true }
+    fetchUsers: makeFetchItemsAction(
+      { resource: 'users', emoji: '🙋' }
     )
+
   },
 
   mutations: {

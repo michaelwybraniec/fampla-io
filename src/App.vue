@@ -4,7 +4,7 @@
     <router-view
       v-show="showPage"
       @ready="onPageReady"
-      :key="`${$route.fullPath}`"
+      :key="$route.fullPath"
     />
     <app-spinner v-show="!showPage" />
   </div>

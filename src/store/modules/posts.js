@@ -1,6 +1,10 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
+import {
+  makeFetchItemAction,
+  makeFetchItemsAction
+} from '@/helpers'
 
 export default {
 
@@ -63,13 +67,14 @@ export default {
       commit('setItem', { resource: 'posts', item: updatedPost }, { root: true })
     },
 
-    fetchPost: ({ dispatch }, { id }) => dispatch('fetchItem',
-      { emoji: '💬', resource: 'posts', id }, { root: true }
+    fetchPost: makeFetchItemAction(
+      { emoji: '💬', resource: 'posts' }
     ),
 
-    fetchPosts: ({ dispatch }, { ids }) => dispatch('fetchItems',
-      { resource: 'posts', ids, emoji: '💬' }, { root: true }
+    fetchPosts: makeFetchItemsAction(
+      { emoji: '💬', resource: 'posts' }
     )
+
   },
   mutations: {}
 }
