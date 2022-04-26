@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       threadLoaded: false,
-      page: 1,
+      page: parseInt(this.$route.query.page) || 1,
       perPage: 10
     }
   },
@@ -92,7 +92,7 @@ export default {
     if (forum.threads) {
       const threads = await this.fetchThreadsByPage({
         ids: forum.threads,
-        page: this.page,
+        page: parseInt(this.$route.query.page) || 1,
         perPage: this.perPage
       })
       await this.fetchUsers({ ids: threads.map((thread) => thread.userId) })
@@ -102,12 +102,7 @@ export default {
   },
   watch: {
     async page(page) {
-      const threads = await this.fetchThreadsByPage({
-        ids: this.forum.threads,
-        page: this.page,
-        perPage: this.perPage
-      })
-      await this.fetchUsers({ ids: threads.map((thread) => thread.userId) })
+      this.$router.push({ query: { page: this.page } })
     }
   }
 }
