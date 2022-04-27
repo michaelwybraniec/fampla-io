@@ -112,7 +112,10 @@ export default {
           ) {
             return
           }
-          this.addNotification({ message: 'Thread recently updated' })
+          this.addNotification({
+            message: 'Thread recently updated',
+            timeout: 5000
+          })
         }
       })
       // fetch the users associated with the posts
@@ -149,7 +152,10 @@ export default {
         if (hasNewPosts) {
           await this.fetchPostsWithUsers(newPosts)
         } else {
-          this.addNotification({ message: 'Thread recently updated' })
+          this.addNotification({
+            message: 'Thread recently updated',
+            timeout: 5000
+          })
         }
       }
     })
