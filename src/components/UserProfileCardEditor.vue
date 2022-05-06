@@ -100,8 +100,21 @@
       </div>
 
       <div class="btn-group space-between">
-        <button class="btn-ghost" @click.prevent="cancel">Cancel</button>
-        <button type="submit" class="btn-blue">Save</button>
+        <button
+          :disabled="processing"
+          class="btn-ghost"
+          @click.prevent="cancel"
+        >
+          Cancel
+        </button>
+        <button :disabled="processing" type="submit" class="btn-blue">
+          <app-spinner
+            :style="{ paddingLeft: '6px', paddingRight: '6px' }"
+            v-if="processing"
+            size="sm"
+          />
+          <span v-else>Save</span>
+        </button>
       </div>
     </form>
   </div>
@@ -120,6 +133,7 @@ export default {
   },
   data() {
     return {
+      processing: false,
       uploadingImage: false,
       activeUser: { ...this.user }
     }
@@ -133,9 +147,24 @@ export default {
       this.activeUser.avatar = uploadedImage || this.activeUser.avatar
       this.uploadingImage = false
     },
-    save() {
+    async handleRandomAvatarUpload() {
+      const randomAvatarGenerated =
+        this.activeUser.avatar.startsWith('https://pixabay')
+      if (randomAvatarGenerated) {
+        const image = await fetch(this.activeUser.avatar)
+        const blob = await image.blob()
+        this.activeUser.avatar = await this.uploadAvatar({
+          file: blob,
+          filename: 'random'
+        })
+      }
+    },
+    async save() {
+      this.processing = true
+      await this.handleRandomAvatarUpload()
       this.$store.dispatch('users/updateUser', { ...this.activeUser })
       this.$router.push({ name: 'Profile' })
+      this.processing = false
     },
     cancel() {
       this.$router.push({ name: 'Profile' })

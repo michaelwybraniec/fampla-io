@@ -6,7 +6,7 @@
       @ready="onPageReady"
       :key="$route.fullPath"
     />
-    <app-spinner v-show="!showPage" />
+    <app-spinner :style="{ margin: '100px auto'}" v-show="!showPage" />
     <app-notifications />
   </div>
 </template>
