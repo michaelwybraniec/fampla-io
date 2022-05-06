@@ -1,9 +1,9 @@
 <template>
   <div class="profile-card">
     <form @submit.prevent="save">
-      <p v-if="activeUser.avatar" class="text-center avatar-edit">
+      <p class="text-center avatar-edit">
         <label for="avatar">
-          <img
+          <app-avatar-img
             :src="activeUser.avatar"
             :alt="`${user.name} profile picture`"
             class="avatar-xlarge img-update"
@@ -14,7 +14,7 @@
               color="white"
               :style="{ padding: '18px', paddingTop: '25px' }"
             />
-            <fa v-else icon="camera" size="3x" />
+            <fa v-else icon="camera" size="4x" />
           </div>
           <input
             v-show="false"
