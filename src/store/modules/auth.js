@@ -1,6 +1,7 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 export default {
 
@@ -44,6 +45,12 @@ export default {
       const result = await firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
+      if (avatar) {
+        const storage = getStorage()
+        const bucketRef = ref(storage, `uploads/${result.user.uid}/images/${Date.now()}-${avatar.name}`)
+        const snapshot = await uploadBytes(bucketRef, avatar)
+        avatar = await getDownloadURL(snapshot.ref)
+      }
       await dispatch('users/createUser', {
         id: result.user.uid,
         email,
