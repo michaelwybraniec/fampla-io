@@ -2,6 +2,7 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import useNotifications from '@/composables/useNotifications'
 
 export default {
 
@@ -58,11 +59,16 @@ export default {
     async uploadAvatar({ state }, { authId, file }) {
       if (!file) return null
       authId = authId || state.authId
-      const storage = getStorage()
-      const bucketRef = ref(storage, `uploads/${authId}/images/${Date.now()}-${file.name}`)
-      const snapshot = await uploadBytes(bucketRef, file)
-      const url = await getDownloadURL(snapshot.ref)
-      return url
+      try {
+        const storage = getStorage()
+        const bucketRef = ref(storage, `uploads/${authId}/images/${Date.now()}-${file.name}`)
+        const snapshot = await uploadBytes(bucketRef, file)
+        const url = await getDownloadURL(snapshot.ref)
+        return url
+      } catch (error) {
+        const { addNotification } = useNotifications()
+        addNotification({ message: 'Error uploading avatar image', type: 'error' })
+      }
     },
 
     signInWithEmailAndPassword(context, { email, password }) {
