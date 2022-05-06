@@ -2801,10 +2801,28 @@ hr {
 }
 
 /* style.css */
-.Pagination{
+.Pagination {
   justify-content: center;
   margin: 40px !important;
 }
-.Pagination .Page-active{
-  color:white;
+.Pagination .Page-active {
+  color: white;
+}
+
+.avatar-edit {
+  position: relative;
+}
+.avatar-edit .avatar-upload-overlay {
+  color: whitesmoke;
+  /* opacity: 0.6; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.avatar-edit .avatar-upload-overlay  :hover{
+  cursor: pointer;
+  color: white;
+  
 }

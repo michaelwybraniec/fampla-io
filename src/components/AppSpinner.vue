@@ -2,6 +2,19 @@
   <div class="lds-dual-ring"></div>
 </template>
 
+<script>
+export default {
+  props: {
+    color: { type: String, default: '#57ad8d' }
+  },
+  data() {
+    return {
+      spinnerColor: this.color
+    }
+  }
+}
+</script>
+
 <style scoped>
 .lds-dual-ring {
   margin: 100px auto;
@@ -12,12 +25,12 @@
 .lds-dual-ring:after {
   content: ' ';
   display: block;
-  width: 34px;
-  height: 34px;
-  margin: 4px;
-  border-radius: 50%;
-  border: 3px solid #57ad8d;
-  border-color: #57ad8d transparent #57ad8d transparent;
+  width: 36px;
+  height: 36px;
+  margin: 5px;
+  border-radius: 100%;
+  border: 4px solid v-bind(spinnerColor);
+  border-color: v-bind(spinnerColor) transparent v-bind(spinnerColor) transparent;
   animation: lds-dual-ring 0.3s linear infinite;
 }
 @keyframes lds-dual-ring {
