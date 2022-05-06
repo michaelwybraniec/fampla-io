@@ -43,3 +43,8 @@ export const makeFetchItemsAction = ({ emoji, resource }) => {
     { emoji, resource, ...payload }, { root: true }
   )
 }
+
+export const arrayRandom = (array) => {
+  const randomIndex = Math.floor(Math.random() * array.length)
+  return array[randomIndex]
+}
