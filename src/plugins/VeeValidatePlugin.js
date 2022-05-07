@@ -23,7 +23,8 @@ export default (app) => {
       messages: {
         required: '{field} is required',
         email: '{field} must be a valid email',
-        min: '{field} must be 0:{min} characters long'
+        min: '{field} must be 0:{min} characters long',
+        unique: '{field} is already taken'
       }
     })
   })

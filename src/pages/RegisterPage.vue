@@ -14,13 +14,13 @@
           v-model="form.username"
           name="username"
           label="Username"
-          rules="required"
+          rules="required|unique:users,username"
         />
         <AppFormField
           v-model="form.email"
           name="email"
           label="Email"
-          rules="required|email"
+          rules="required|email|unique:users,email"
           type="email"
         />
         <AppFormField
