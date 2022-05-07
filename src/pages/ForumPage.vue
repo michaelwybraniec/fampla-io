@@ -1,32 +1,31 @@
 <template>
-  <div v-if="forum && threadLoaded" class="col-full push-top">
-    <div class="forum-header">
-      <div class="forum-details">
-        <h1>{{ forum.name }}</h1>
-        <p class="text-lead">{{ forum.description }}</p>
+  <div v-if="asyncDataStatus_ready" class="col-full">
+    <div v-if="forum" class="col-full push-top">
+      <div class="forum-header">
+        <div class="forum-details">
+          <h1>{{ forum.name }}</h1>
+          <p class="text-lead">{{ forum.description }}</p>
+        </div>
+        <router-link
+          v-if="forum?.id"
+          :to="{
+            name: 'ThreadCreate',
+            params: { forumId: forum.id }
+          }"
+          class="btn-green btn-small"
+        >
+          Start a thread
+        </router-link>
       </div>
-      <router-link
-        v-if="forum?.id"
-        :to="{
-          name: 'ThreadCreate',
-          params: { forumId: forum.id }
-        }"
-        class="btn-green btn-small"
-      >
-        Start a thread
-      </router-link>
-    </div>
-    <div class="col-full push-top">
-      <div v-if="asyncDataStatus_ready" class="col-full">
-        <thread-list v-if="threads.length > 0" :threads="threads" />
+      <div v-if="threads.length > 0" class="push-top">
+        <thread-list :threads="threads" />
         <v-pagination
           v-model="page"
           :pages="totalPages"
           active-color="#57AD8D"
-          @update:modelValue="updateHandler"
         />
       </div>
-      <span v-else>
+      <div class="push-top" v-else>
         No threads found. Create a first thread
         <router-link
           v-if="forum?.id"
@@ -37,7 +36,7 @@
         >
           here.
         </router-link>
-      </span>
+      </div>
     </div>
   </div>
 </template>
@@ -59,7 +58,6 @@ export default {
   },
   data() {
     return {
-      threadLoaded: false,
       page: parseInt(this.$route.query.page) || 1,
       perPage: 10
     }
@@ -75,7 +73,7 @@ export default {
         .map((thread) => this.$store.getters['threads/thread'](thread.id))
     },
     threadCount() {
-      return this.forum.threads.length
+      return this.forum.threads?.length || 0
     },
     totalPages() {
       if (!this.threadCount) return 0
@@ -89,16 +87,13 @@ export default {
   },
   async created() {
     const forum = await this.fetchForum({ id: this.id })
-    if (forum.threads) {
-      const threads = await this.fetchThreadsByPage({
-        ids: forum.threads,
-        page: parseInt(this.$route.query.page) || 1,
-        perPage: this.perPage
-      })
-      await this.fetchUsers({ ids: threads.map((thread) => thread.userId) })
-      this.asyncDataStatus_fetched()
-    }
-    this.threadLoaded = true
+    const threads = await this.fetchThreadsByPage({
+      ids: forum.threads,
+      page: this.page,
+      perPage: this.perPage
+    })
+    await this.fetchUsers({ ids: threads.map((thread) => thread.userId) })
+    this.asyncDataStatus_fetched()
   },
   watch: {
     async page(page) {
