@@ -72,7 +72,16 @@
         label="Location"
         name="location"
         v-model="activeUser.location"
+        list="locations"
+        @mouseenter="loadLocationOptions"
       />
+      <datalist id="locations">
+        <option
+          v-for="location in locationOptions"
+          :value="location.name.common"
+          :key="location.name.common"
+        />
+      </datalist>
 
       <div class="btn-group space-between">
         <button
@@ -110,7 +119,8 @@ export default {
     return {
       processing: false,
       uploadingImage: false,
-      activeUser: { ...this.user }
+      activeUser: { ...this.user },
+      locationOptions: []
     }
   },
   methods: {
@@ -121,6 +131,11 @@ export default {
       const uploadedImage = await this.uploadAvatar({ file })
       this.activeUser.avatar = uploadedImage || this.activeUser.avatar
       this.uploadingImage = false
+    },
+    async loadLocationOptions() {
+      if (this.locationOptions.length) return
+      const res = await fetch('https://restcountries.com/v3/all')
+      this.locationOptions = await res.json()
     },
     async handleRandomAvatarUpload() {
       const randomAvatarGenerated =
