@@ -1,6 +1,4 @@
-import firebase from 'firebase/compat/app'
-import 'firebase/compat/auth'
-import 'firebase/compat/firestore'
+import firebase from '@/helpers/firebase'
 import {
   docToResource,
   makeAppendChildToParentMutation,
@@ -33,7 +31,7 @@ export default {
           get threads() {
             return rootState.threads.items.filter(post => post.userId === user.id)
           },
-          get theThreads () {
+          get theThreads() {
             return user.threads
           },
           get threadsCount() {

@@ -1,6 +1,4 @@
-import firebase from 'firebase/compat/app'
-import 'firebase/compat/auth'
-import 'firebase/compat/firestore'
+import firebase from '@/helpers/firebase'
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import useNotifications from '@/composables/useNotifications'
 

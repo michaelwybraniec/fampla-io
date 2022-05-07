@@ -1,6 +1,4 @@
-import firebase from 'firebase/compat/app'
-import 'firebase/compat/auth'
-import 'firebase/compat/firestore'
+import firebase from '@/helpers/firebase'
 import chunk from 'lodash/chunk'
 import {
   findById,
@@ -33,6 +31,7 @@ export default {
             return thread.posts.length - 1
           },
           get contributorsCount() {
+            if (!thread.contributors) return 0
             return thread.contributors.length
           }
         }
@@ -71,7 +70,8 @@ export default {
         { parentId: forumId, childId: threadRef.id }, { root: true }
       )
       await dispatch('posts/createPost',
-        { text, threadId: threadRef.id }, { root: true }
+        { text, threadId: threadRef.id, firstInThread: true },
+        { root: true }
       )
       return findById(state.items, threadRef.id)
     },

@@ -13,7 +13,7 @@ import VeeValidatePlugin from '@/plugins/VeeValidatePlugin'
 // firebase
 import firebaseConfig from '@/config/firebase'
 import { getAnalytics, logEvent } from 'firebase/analytics'
-import firebase from 'firebase/compat/app'
+import firebase from '@/helpers/firebase'
 const app = firebase.initializeApp(firebaseConfig)
 
 // app.auth().onAuthStateChanged(user => {
