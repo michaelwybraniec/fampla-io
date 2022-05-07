@@ -1,16 +1,15 @@
 <template>
   <div class="col-full">
-    <form @submit.prevent="save">
-      <div class="form-group">
-        <textarea
-          v-model="form.postCopy.text"
-          name=""
-          id=""
-          cols="30"
-          rows="10"
-          class="form-input"
-        />
-      </div>
+    <VeeForm @submit="save" :key="formKey">
+      <AppFormField
+        label="Post"
+        as="textarea"
+        name="text"
+        v-model="postCopy.text"
+        rows="10"
+        cols="30"
+        rules="required"
+      />
       <div class="form-actions">
         <button
           @click.prevent="$emit('cancel')"
@@ -23,7 +22,7 @@
           {{ post.id ? 'Update Post' : 'Submit post' }}
         </button>
       </div>
-    </form>
+    </VeeForm>
   </div>
 </template>
 
@@ -34,31 +33,18 @@ export default {
   },
   data() {
     return {
-      form: { postCopy: { ...this.post } }
+      postCopy: { ...this.post },
+      formKey: Math.random()
     }
   },
   methods: {
     save() {
-      this.$emit('clean')
-      this.$emit('save', { post: this.form.postCopy })
-      this.form.postCopy.text = ''
-      this.form.post.text = ''
-    }
-  },
-  watch: {
-    form: {
-      handler() {
-        console.log('TEST PostEditor form', this.form.postCopy.text, this.post)
-        if (this.form.postCopy.text !== this.post) {
-          this.$emit('dirty')
-        } else {
-          this.$emit('clean')
-        }
-      },
-      deep: true
+      this.$emit('save', { post: this.postCopy }) // access under eventData.post
+      this.postCopy.text = ''
+      this.formKey = Math.random()
     }
   }
 }
 </script>
 
-<style scroped></style>
+<style scoped></style>
