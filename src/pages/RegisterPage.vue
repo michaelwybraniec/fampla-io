@@ -1,20 +1,7 @@
 <template>
   <div class="flex-grid justify-center">
     <div class="col-2">
-      <VeeForm
-        @submit="register"
-        class="card card-form"
-        :validation-schema="{
-          name: (value) => {
-            if (value && value.trim()) return true
-            return 'This is required'
-          },
-          username: (value) => {
-            if (value && value.trim()) return true
-            return 'This is required'
-          }
-        }"
-      >
+      <VeeForm @submit="register" class="card card-form">
         <h1 class="text-center">Register</h1>
 
         <div class="form-group">
@@ -25,18 +12,22 @@
             id="name"
             type="text"
             class="form-input"
+            :rules="required"
           />
+          <VeeErrorMessage name="name" class="form-error" />
         </div>
 
         <div class="form-group">
           <label for="username">Username</label>
           <VeeField
-            name="name"
+            name="username"
             v-model="form.username"
             id="username"
             type="text"
             class="form-input"
+            :rules="required"
           />
+          <VeeErrorMessage name="username" class="form-error" />
         </div>
 
         <div class="form-group">
@@ -92,11 +83,12 @@
   </div>
 </template>
 <script>
-import { Form, Field } from 'vee-validate'
+import { Form, Field, ErrorMessage } from 'vee-validate'
 export default {
   components: {
     VeeForm: Form,
-    VeeField: Field
+    VeeField: Field,
+    VeeErrorMessage: ErrorMessage
   },
   name: 'RegisterPage',
   data() {
@@ -112,6 +104,10 @@ export default {
     }
   },
   methods: {
+    required(value) {
+      if (value && value.trim()) return true
+      return 'This is required'
+    },
     async register() {
       await this.$store.dispatch(
         'auth/registerUserWithEmailAndPassword',
