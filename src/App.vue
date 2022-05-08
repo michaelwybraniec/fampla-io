@@ -6,7 +6,7 @@
       @ready="onPageReady"
       :key="$route.fullPath"
     />
-    <app-spinner :style="{ margin: '100px auto'}" v-show="!showPage" />
+    <app-spinner :style="{ margin: '100px auto' }" v-show="!showPage" />
     <app-notifications />
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchAuthUser']),
+    ...mapActions('auth', ['fetchAuthUser']),
     onPageReady() {
       this.showPage = true
       NProgress.done()
@@ -52,5 +52,4 @@ export default {
 #nprogress .bar {
   background: #57ad8d !important;
 }
-/* @import  "~bootstrap/css/bootstrap.css" */
 </style>

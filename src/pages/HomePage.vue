@@ -1,6 +1,26 @@
 <template>
   <div v-if="asyncDataStatus_ready" class="container">
-    <h1 class="push-top">Welcome to the Forum</h1>
+    <h3 style="padding: 10px" class="push-top">The</h3>
+    <h3
+      style="
+        background-color: #263959;
+        border-radius: 5px;
+        color: white;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-right: 14px;
+        padding-left: 14px;
+      "
+      class="push-top"
+    >
+      fampla.io
+    </h3>
+    <div>
+      <h3 style="padding: 10px; margin-right: 10px" class="push-top">
+        is a crazy-fast netlified vue3-firebase app!
+      </h3>
+    </div>
+
     <category-list :categories="categories" />
   </div>
 </template>
