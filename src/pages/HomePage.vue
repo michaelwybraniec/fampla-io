@@ -1,5 +1,10 @@
 <template>
   <div v-if="asyncDataStatus_ready" class="container">
+    <AppHead>
+      <title>{{ forum?.name }}</title>
+      <meta property="og:title" :content="forum?.name" />
+      <meta name="twitter:title" :content="forum?.name" />
+    </AppHead>
     <h3 style="padding: 10px" class="push-top">The</h3>
     <h3
       style="
@@ -17,7 +22,7 @@
     </h3>
     <div>
       <h3 style="padding: 10px; margin-right: 10px" class="push-top">
-        is a crazy-fast netlified vue3-firebase app!
+        is a crazy-fast netlified vue3-firebase app! (michaelwybraniec@me.com)
       </h3>
     </div>
 

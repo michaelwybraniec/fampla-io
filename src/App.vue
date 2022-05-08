@@ -1,4 +1,20 @@
 <template>
+  <AppHead>
+    <title>Vue.js 3 Master Class Forum</title>
+    <meta name="description" content="A crazy-fast netlified vue3-firebase app! (michaelwybraniec@me.com)">
+
+    <!-- Social -->
+    <meta property="og:title" content="A crazy-fast netlified vue3-firebase app! (michaelwybraniec@me.com)">
+    <meta property="og:description" content="A crazy-fast netlified vue3-firebase app! (michaelwybraniec@me.com)">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/46869143?s=400&u=948ae08c3d756babbb80b5388b7a1006fa832606&v=4">
+
+    <!-- Twitter -->
+    <meta name="twitter:title" content="A crazy-fast netlified vue3-firebase app! (michaelwybraniec@me.com)">
+    <meta name="twitter:description" content="A crazy-fast netlified vue3-firebase app! (michaelwybraniec@me.com)">
+    <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/46869143?s=400&u=948ae08c3d756babbb80b5388b7a1006fa832606&v=4">
+    <meta name="twitter:card" content="summary_large_image">
+  </AppHead>
+
   <the-nav-bar />
   <div class="container">
     <router-view
