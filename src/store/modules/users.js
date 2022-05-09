@@ -1,4 +1,11 @@
-import firebase from '@/helpers/firebase'
+import { db } from '@/helpers/firebase'
+import {
+  serverTimestamp,
+  doc,
+  getDoc,
+  updateDoc,
+  setDoc
+} from 'firebase/firestore'
 import {
   docToResource,
   makeAppendChildToParentMutation,
@@ -6,6 +13,7 @@ import {
   makeFetchItemAction,
   makeFetchItemsAction
 } from '@/helpers'
+
 export default {
 
   namespaced: true,
@@ -17,7 +25,7 @@ export default {
   getters: {
 
     user: (state, getters, rootState) => {
-      return (id) => {
+      return id => {
         const user = findById(state.items, id)
         if (!user) return null
         return {
@@ -46,13 +54,13 @@ export default {
   actions: {
 
     async createUser({ commit }, { id, email, name, username, avatar = null }) {
-      const registeredAt = firebase.firestore.FieldValue.serverTimestamp()
+      const registeredAt = serverTimestamp()
       const usernameLower = username.toLowerCase()
       email = email.toLowerCase()
       const user = { avatar, email, name, username, usernameLower, registeredAt }
-      const userRef = await firebase.firestore().collection('users').doc(id)
-      userRef.set(user)
-      const newUser = await userRef.get()
+      const userRef = doc(db, 'users', id)
+      await setDoc(userRef, user)
+      const newUser = await getDoc(userRef)
       commit('setItem', { resource: 'users', item: newUser }, { root: true })
       return docToResource(newUser)
     },
@@ -67,8 +75,8 @@ export default {
         email: user.email || null,
         location: user.location || null
       }
-      const userRef = firebase.firestore().collection('users').doc(user.id)
-      await userRef.update(updates)
+      const userRef = doc(db, 'users', user.id)
+      await updateDoc(userRef, updates)
       commit('setItem', { resource: 'users', item: user }, { root: true })
     },
 

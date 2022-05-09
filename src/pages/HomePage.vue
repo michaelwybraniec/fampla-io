@@ -1,9 +1,9 @@
 <template>
   <div v-if="asyncDataStatus_ready" class="container">
     <AppHead>
-      <title>{{ forum?.name }}</title>
-      <meta property="og:title" :content="forum?.name" />
-      <meta name="twitter:title" :content="forum?.name" />
+      <title>Home</title>
+      <meta property="og:title" content="Home" />
+      <meta name="twitter:title" content="Home" />
     </AppHead>
     <h3 style="padding: 10px" class="push-top">The</h3>
     <h3
