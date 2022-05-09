@@ -1,6 +1,10 @@
-# The fampla.io is a crazy-fast netlified vue3-firebase app!
+# Welcome to the fampla.io!
 
-This repository contains the source code for the remastered [Vue.js 3 Masterclass](https://vueschool.io/the-vuejs-master-class) course on 05/2022 by [Mike](hhttps://www.linkedin.com/in/michaelwybraniec/) - [michaelwybraniec@me.com](michaelwybraniec@me.com)
+A crazy-fast netlified vue3-firebase app!
+
+[![](https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/cat-hacker-irina-kuznetsova-iridi.jpg)](https://www.linkedin.com/in/michaelwybraniec/)
+
+This repository contains the source code for the remastered [Vue.js 3 Masterclass](https://vueschool.io/the-vuejs-master-class) course on 05/2022 by [Mike](https://www.linkedin.com/in/michaelwybraniec/) ([michaelwybraniec@me.com](michaelwybraniec@me.com))
 
 The Vue.js Masterclass is so comprehensive that we **can not cover everything on this page**. Thus we’ve created a [separate page](https://vueschool.io/the-vuejs-master-class) where you can learn more about it.
 
