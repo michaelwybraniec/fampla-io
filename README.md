@@ -2,7 +2,7 @@
 
 A crazy-fast netlified vue3-firebase app!
 
-[![](https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/cat-hacker-irina-kuznetsova-iridi.jpg)](https://www.linkedin.com/in/michaelwybraniec/)
+[![](https://img.freepik.com/free-photo/beautiful-cool-british-hipster-cat-with-vintage-round-sunglasses-studio_338491-12631.jpg?w=500)](https://www.linkedin.com/in/michaelwybraniec/)
 
 This repository contains the source code for the remastered [Vue.js 3 Masterclass](https://vueschool.io/the-vuejs-master-class) course on 05/2022 by [Mike](https://www.linkedin.com/in/michaelwybraniec/) ([michaelwybraniec@me.com](michaelwybraniec@me.com))
 
