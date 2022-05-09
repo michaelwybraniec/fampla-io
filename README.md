@@ -33,49 +33,49 @@ The goal was to master skills along with Best Practices, Modern Javascript, and 
 
 ### Useful links:
 
-Firebase:
+- Firebase:
 https://firebase.google.com/docs/firestore/security/rules-structure
 https://firebase.google.com/docs/firestore/security/rules-conditions
 
-Namespacing:
+- Namespacing:
 https://vuex.vuejs.org/guide/modules.html#namespacing
 https://vuejs.org/guide/reusability/custom-directives.html
 
-More about transition groups: 
+- More about transition groups: 
 https://vuejs.org/guide/built-ins/transition-group.html
 
-Portrait_Placeholder.png:
+- Portrait_Placeholder.png:
 https://commons.wikimedia.org/wiki/File:Portrait_Placeholder.png
 
-Stunning free images & royalty free stock:
+- Stunning free images & royalty free stock:
 https://pixabay.com/
 https://pixabay.com/api/docs/
 
-Form Validation for Vue.js:
+- Form Validation for Vue.js:
 https://vee-validate.logaretm.com/v4/
 
-Bunch of validation rules out of the box:
+- Bunch of validation rules out of the box:
 https://vee-validate.logaretm.com/v2/guide/rules.html#after
 
-A tiny, renderless, mobile-friendly, feature-rich modal component for Vue.js:
+- A tiny, renderless, mobile-friendly, feature-rich modal component for Vue.js:
 https://v3.vue-final-modal.org/
 
-Modern tools and services into a single, simple workflow for building high performance sites and apps:
+- Modern tools and services into a single, simple workflow for building high performance sites and apps:
 https://www.netlify.com/
 
-Uses webpack-bundle-analyzer to create an interactive treemap visualization of the contents of all your bundles:
+- Uses webpack-bundle-analyzer to create an interactive treemap visualization of the contents of all your bundles:
 https://www.npmjs.com/package/vue-cli-plugin-webpack-bundle-analyzer
 
-Name our chunk or select different modes:
+- Name our chunk or select different modes:
 https://webpack.js.org/api/module-methods/#magic-comments
 
-Vue-cli plugin to visualize size of webpack output files:
+- Vue-cli plugin to visualize size of webpack output files:
 https://www.npmjs.com/package/vue-cli-plugin-webpack-bundle-analyzer
 
-Get higher rankings by serving crawlers a static HTML version of your Javascript website, without compromising your customers’ experience:
+- Get higher rankings by serving crawlers a static HTML version of your Javascript website, without compromising your customers’ experience:
 https://prerender.io/
 
-Check any website's social share previews while you browse:
+- Check any website's social share previews while you browse:
 https://chrome.google.com/webstore/detail/social-share-preview/ggnikicjfklimmffbkhknndafpdlabib
 
 
